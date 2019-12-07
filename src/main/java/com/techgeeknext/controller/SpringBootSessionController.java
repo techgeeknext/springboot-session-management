@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SpringBootSessionController {
     @PostMapping("/addNote")
     public String addNote(@RequestParam("note") String note, HttpServletRequest request) {
+        //get the notes from request session
         List<String> notes = (List<String>) request.getSession().getAttribute("NOTES_SESSION");
+        //check if notes is present in session or not
         if (notes == null) {
             notes = new ArrayList<>();
+            // if notes object is not present in session, set notes in the request session
             request.getSession().setAttribute("NOTES_SESSION", notes);
         }
         notes.add(note);
@@ -33,6 +36,7 @@ public class SpringBootSessionController {
     }
     @PostMapping("/invalidate/session")
     public String destroySession(HttpServletRequest request) {
+        //invalidate the session , this will clear the data from configured database (Mysql/redis/hazelcast)
         request.getSession().invalidate();
         return "redirect:/home";
     }
