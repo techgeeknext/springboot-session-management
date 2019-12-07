@@ -23,7 +23,7 @@ public class SpringBootSessionController {
         }
         notes.add(note);
         request.getSession().setAttribute("NOTES_SESSION", notes);
-        return "redirect:/";
+        return "redirect:/home";
     }
     @GetMapping("/home")
     public String home(Model model, HttpSession session) {
@@ -34,6 +34,6 @@ public class SpringBootSessionController {
     @PostMapping("/invalidate/session")
     public String destroySession(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/";
+        return "redirect:/home";
     }
 }
